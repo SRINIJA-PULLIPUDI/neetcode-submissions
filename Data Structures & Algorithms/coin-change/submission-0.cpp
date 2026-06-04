@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        if(amount==0) return 0;
+        sort(coins.begin(),coins.end());
+        vector<int> dp(amount+1,10001);
+        dp[0] = 0;
+        for(int i=1;i<=amount;i++){
+            for(int j=0;j<coins.size();j++){
+                if(coins[j]<=i){
+                    dp[i] = min(dp[i],1+dp[i-coins[j]]);
+                }
+                else break;
+            }
+        }
+        // for(int i=0;i<dp.size();i++){
+        //     cout<<dp[i]<<" ";
+        // }
+        if(dp[amount]==10001) return -1;
+        return dp[amount];
+        // return 1;
+    }
+};
